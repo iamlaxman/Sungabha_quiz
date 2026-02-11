@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="School Quiz Competition - Offline Ready Quiz Application">
+    <title>School Quiz Competition</title>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- ============================================ -->
+    <!-- SCREEN 1: BANNER SCREEN -->
+    <!-- ============================================ -->
+    <section id="banner-screen" class="screen active">
+        <img src="assets/banner.png" alt="School Banner" class="banner-image" onerror="this.style.display='none'">
+        <h1 class="banner-title">2nd Sungabha SEE Quiz Contest 2082</h1>
+        <p class="school-name">Sungabha Secondary School</p>
+        <p class="banner-subtitle">Organized by Grade XII Science Students</p>
+        <button id="start-btn" class="btn btn-large">Start Quiz</button>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SCREEN 2: WELCOME SCREEN -->
+    <!-- ============================================ -->
+    <section id="welcome-screen" class="screen">
+        <h1>Welcome!</h1>
+        <p class="welcome-message">Welcome to the Quiz Competition</p>
+        <p class="text-content">Get ready to test your knowledge across multiple subjects and rounds. The quiz is designed to challenge and inspire!</p>
+        <button id="view-rules-btn" class="btn btn-large">View Rules</button>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SCREEN 3: RULES SCREEN -->
+    <!-- ============================================ -->
+    <section id="rules-screen" class="screen">
+        <h1>Quiz Rules</h1>
+        <div class="rules-container">
+            <h3>There are 3 Rounds:</h3>
+            <ul class="rules-list">
+                <li><strong>Round 1:</strong> General Subjective Round - Physics, Chemistry, Biology, Mathematics</li>
+                <li><strong>Round 2:</strong> Visual / Image Round - Identify images and visual content</li>
+                <li><strong>Round 3:</strong> Rapid Fire Round - Fast-paced questions for all teams</li>
+            </ul>
+        </div>
+        <p class="text-content">Host will control the quiz. Questions are selected randomly by participants.</p>
+        <button id="start-round1-btn" class="btn btn-large">Start Round 1</button>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SCREEN 4: SUBJECT SELECTION SCREEN -->
+    <!-- ============================================ -->
+    <section id="subject-selection-screen" class="screen">
+        <h2 id="subject-round-title">Round 1 - Select Subject</h2>
+        <p class="text-content">Choose a subject to view available questions</p>
+        <div id="subject-buttons-container" class="subject-grid">
+            <!-- Subjects will be dynamically inserted here -->
+        </div>
+        <div id="round-navigation" style="margin-top: 40px; display: flex; gap: 20px; justify-content: center;">
+            <button id="prev-round-btn" class="btn btn-secondary" style="display: none;">← Previous Round</button>
+            <button id="next-round-btn-nav" class="btn btn-secondary">Next Round →</button>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SCREEN 5: QUESTION NUMBER SELECTION SCREEN -->
+    <!-- ============================================ -->
+    <section id="question-number-screen" class="screen">
+        <h2 id="current-subject-indicator">Select Question Number</h2>
+        <p class="text-content">Click on a number to view the question</p>
+        <div id="question-number-grid" class="question-number-grid">
+            <!-- Question numbers 1-20 will be dynamically inserted here -->
+        </div>
+        <div class="back-btn-container">
+            <button id="back-to-subjects-btn" class="btn btn-secondary">Back to Subjects</button>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SCREEN 6: QUESTION DISPLAY SCREEN -->
+    <!-- ============================================ -->
+    <section id="question-display-screen" class="screen">
+        <div class="question-container">
+            <div id="display-subject-indicator" class="subject-indicator">Subject</div>
+            
+            <!-- Media container for images and videos (Round 2) -->
+            <div id="media-container" style="display: none; margin-bottom: 30px;">
+                <img id="question-image" src="" alt="Question Image" style="max-width: 100%; max-height: 400px; border-radius: 10px; display: none;">
+                <video id="question-video" src="" controls style="max-width: 100%; max-height: 400px; border-radius: 10px; display: none;"></video>
+            </div>
+            
+            <div id="display-question-text" class="question-text">Question text will appear here</div>
+            
+            <div id="answer-box" class="answer-box">
+                <div class="answer-label">Answer</div>
+                <div id="display-answer-text" class="answer-text">Answer will appear here</div>
+            </div>
+            
+            <div class="question-actions">
+                <button id="show-answer-btn" class="btn">Show Answer</button>
+                <button onclick="backToQuestionNumbers()" class="btn" style="background: #e74c3c; color: white;">Back to Questions</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SCREEN 7: ROUND COMPLETION SCREEN -->
+    <!-- ============================================ -->
+    <section id="round-completion-screen" class="screen">
+        <h1 id="completion-title">Round Complete!</h1>
+        <p id="completion-message" class="completion-submessage">All subjects and questions have been completed.</p>
+        <button id="next-round-btn" class="btn btn-large">Start Next Round</button>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SCREEN 8: RAPID FIRE RULES SCREEN -->
+    <!-- ============================================ -->
+    <section id="rapid-fire-rules-screen" class="screen">
+        <h1>Round 3: Rapid Fire</h1>
+        <div class="rules-container">
+            <h3>Rapid Fire Rules:</h3>
+            <ul class="rules-list">
+                <li>Each of the 9 groups gets 1 random set</li>
+                <li>Each set contains 5 questions</li>
+                <li>No passing allowed - fast answering required</li>
+                <li>Sets are chosen randomly by participants</li>
+                <li>Used sets will disappear from selection</li>
+            </ul>
+        </div>
+        <div style="display: flex; gap: 20px; justify-content: center;">
+            <button id="back-to-round2-btn" class="btn btn-secondary">← Back to Round 2</button>
+            <button id="start-rapid-fire-btn" class="btn btn-large">Start Rapid Fire</button>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SCREEN 9: RAPID FIRE SET SELECTION SCREEN -->
+    <!-- ============================================ -->
+    <section id="rapid-fire-set-screen" class="screen">
+        <h2>Select a Question Set</h2>
+        <p class="text-content">Choose a set number (1-9) for your rapid fire round</p>
+        <div id="set-grid" class="set-grid">
+            <!-- Sets 1-9 will be dynamically inserted here -->
+        </div>
+        <button id="end-quiz-btn" class="btn" style="background: #e74c3c; color: white; margin-top: 40px;">End Quiz</button>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SCREEN 10: RAPID FIRE QUESTION SCREEN -->
+    <!-- ============================================ -->
+    <section id="rapid-fire-question-screen" class="screen">
+        <div id="rapid-fire-progress" class="progress-indicator">Question 1 of 5</div>
+        <div id="rapid-fire-question-text" class="rapid-fire-question">Question text will appear here</div>
+        <button id="rapid-fire-next-btn" class="btn btn-large">Next Question</button>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SCREEN 11: RAPID FIRE REVIEW SCREEN -->
+    <!-- ============================================ -->
+    <section id="rapid-fire-review-screen" class="screen">
+        <h2>Set Review - All Questions & Answers</h2>
+        <div id="rapid-fire-review-container" class="review-container">
+            <!-- Review items will be dynamically inserted here -->
+        </div>
+        <button id="rapid-fire-continue-btn" class="btn btn-large" style="margin-top: 30px;">Continue</button>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SCREEN 12: AUTHOR SCREEN -->
+    <!-- ============================================ -->
+    <section id="author-screen" class="screen">
+        <h1 style="font-size: 4rem; margin-bottom: 50px;">Quiz Creator</h1>
+        <div style="background: rgba(255,255,255,0.1); padding: 50px 80px; border-radius: 20px; margin-bottom: 40px;">
+            <p style="font-size: 2rem; color: var(--accent-gold); margin-bottom: 20px;">Author</p>
+            <p style="font-size: 3rem; color: white; font-weight: bold; margin-bottom: 20px;">Laxman Poudel</p>
+            <p style="font-size: 1.5rem; color: white;">Student of Grade XII</p>
+        </div>
+        <button id="author-continue-btn" class="btn btn-large">Continue to Thank You</button>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SCREEN 13: FINAL SCREEN -->
+    <!-- ============================================ -->
+    <section id="final-screen" class="screen">
+        <h1 class="thank-you-text">Thank You for Your Participation!</h1>
+        <div class="credits">
+            <p>This quiz system was developed by</p>
+            <p><strong>Laxman Poudel</strong></p>
+            <p>with the support of Grade XII students and teachers.</p>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SCRIPTS -->
+    <!-- ============================================ -->
+    <!-- Quiz Data - Contains all questions and answers -->
+    <script src="js/data.js"></script>
+    
+    <!-- Main Application Logic -->
+    <script src="js/app.js"></script>
+</body>
+</html>
